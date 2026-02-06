@@ -1,70 +1,154 @@
-# Getting Started with Create React App
+🚀 DeployPulse Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern React frontend application for managing software feature tracking and deployment status.
 
-## Available Scripts
+This application connects to the DeployPulse Spring Boot backend API to display, create, and manage features in the deployment pipeline.
 
-In the project directory, you can run:
+📌 Project Summary
 
-### `npm start`
+DeployPulse is a full-stack feature tracking system designed to help teams monitor development, testing, and deployment progress of features.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This repository contains the frontend (React) application.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+🏗 Architecture Overview
+┌─────────────────────────────────────────────────────────────┐
+│                    Frontend (React App)                     │
+│                                                             │
+│  ├── Feature Dashboard                                      │
+│  ├── Add Feature Form                                       │
+│  ├── Feature Status Display                                 │
+│  └── API Integration Layer                                  │
+│                                                             │
+│        ↕ REST API Calls (JSON over HTTP)                    │
+└─────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────┐
+│              Backend (Spring Boot – DeployPulse)            │
+│                                                             │
+│  ├── Feature REST APIs                                      │
+│  ├── Business Logic                                         │
+│  ├── JPA/Hibernate                                          │
+│  └── H2 Database                                            │
+└─────────────────────────────────────────────────────────────┘
 
-### `npm test`
+🔗 Frontend–Backend Communication
+Item	Value
+Protocol	REST API
+Data Format	JSON
+Backend Base URL (Production)	https://your-render-backend-url.onrender.com
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Backend Base URL (Local Dev)	http://localhost:8080
+⚙️ Technology Stack
+Technology	Purpose
+React.js	Frontend framework
+JavaScript (ES6+)	Application logic
+Fetch API	Backend communication
+CSS	Styling
+Vercel	Frontend deployment
+Render	Backend deployment
+📁 Project Structure
+src/
+ ├── components/      # Reusable UI components
+ ├── pages/           # Page-level components
+ ├── App.js           # Main app component
+ ├── index.js         # Entry point
+ └── styles/          # CSS files
 
-### `npm run build`
+✨ Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+View all features
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Add new features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Display feature build status
 
-### `npm run eject`
+Display deployment status
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Real-time data from backend API
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+🛠 Installation & Setup
+1️⃣ Clone the Repository
+git clone <frontend-repo-url>
+cd deploypulse-frontend
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2️⃣ Install Dependencies
+npm install
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3️⃣ Run Locally
+npm start
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+App runs at:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+👉 http://localhost:3000
 
-### Code Splitting
+🌍 Backend Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The frontend communicates with backend APIs using a base URL.
 
-### Analyzing the Bundle Size
+Recommended Approach (Best Practice)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Create a .env file in the frontend root:
 
-### Making a Progressive Web App
+REACT_APP_API_URL=https://your-render-backend-url.onrender.com
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+Then in code:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+fetch(`${process.env.REACT_APP_API_URL}/api/features`)
 
-### Deployment
+🚀 Deployment on Vercel
+Steps:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Push frontend code to GitHub
 
-### `npm run build` fails to minify
+Go to vercel.com
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Import project
+
+Add environment variable:
+
+Key	Value
+REACT_APP_API_URL	https://your-render-backend-url.onrender.com
+
+Click Deploy
+
+🧪 Example API Flow
+Frontend Request
+GET /api/features
+
+Backend Response
+[
+  {
+    "id": 1,
+    "name": "Login Feature",
+    "status": "IN_DEVELOPMENT",
+    "buildStatus": "PASSED"
+  }
+]
+
+🧩 Challenges Faced & Solutions
+Problem	Cause	Solution
+Backend not connecting	Using localhost after deployment	Replaced with Render backend URL
+CORS errors	Backend not allowing frontend origin	Enabled CORS in Spring Boot
+White Label Error	Wrong URL opened	Correct API endpoint used
+Docker port error	Port 8080 already in use	Killed existing process
+SonarCloud not computing	Wrong sonar.host.url	Set to https://sonarcloud.io
+Docker not running	WSL not installed	Installed WSL + Docker Desktop
+📌 Known Limitations
+
+Uses H2 in-memory database (data resets on restart)
+
+No authentication yet
+
+Basic UI styling
+
+📈 Future Improvements
+
+User authentication
+
+Dark mode UI
+
+Pagination
+
+Role-based access
