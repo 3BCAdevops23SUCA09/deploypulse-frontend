@@ -10,6 +10,8 @@ DeployPulse is a full-stack feature tracking system designed to help teams monit
 
 This repository contains the frontend (React) application.
 
+Live demo:https://deploypulse-frontend.vercel.app/
+
 🏗 Architecture Overview
 ┌─────────────────────────────────────────────────────────────┐
 │                    Frontend (React App)                     │
