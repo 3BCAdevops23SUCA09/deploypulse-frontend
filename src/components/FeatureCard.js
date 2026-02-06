@@ -16,7 +16,7 @@ function FeatureCard({ feature }) {
   };
 
   const deleteFeature = () => {
-    fetch(`http://localhost:8080/api/features/${feature.id}`, {
+    fetch(`https://deploypulse-backend.onrender.com/api/features/${feature.id}`, {
       method: "DELETE"
     }).then(() => window.location.reload());
   };

@@ -5,7 +5,7 @@ function FeatureList() {
   const [features, setFeatures] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/features")
+    fetch("https://deploypulse-backend.onrender.com/api/features")
       .then(res => res.json())
       .then(data => setFeatures(data));
   }, []);

@@ -9,7 +9,7 @@ function FeatureForm() {
   });
 
   const submitFeature = () => {
-    fetch("http://localhost:8080/api/features", {
+    fetch("https://deploypulse-backend.onrender.com/api/features", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(feature)
