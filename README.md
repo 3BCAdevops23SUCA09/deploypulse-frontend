@@ -129,6 +129,10 @@ Backend Response
   }
 ]
 
+sonar analysis done:
+<img width="1391" height="290" alt="image" src="https://github.com/user-attachments/assets/11cdae2f-176e-42cd-b110-3e8ee0fc2510" />
+
+
 🧩 Challenges Faced & Solutions
 Problem	Cause	Solution
 Backend not connecting	Using localhost after deployment	Replaced with Render backend URL
