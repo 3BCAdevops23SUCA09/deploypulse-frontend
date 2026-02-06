@@ -133,14 +133,190 @@ sonar analysis done:
 <img width="1391" height="290" alt="image" src="https://github.com/user-attachments/assets/11cdae2f-176e-42cd-b110-3e8ee0fc2510" />
 
 
-🧩 Challenges Faced & Solutions
-Problem	Cause	Solution
-Backend not connecting	Using localhost after deployment	Replaced with Render backend URL
-CORS errors	Backend not allowing frontend origin	Enabled CORS in Spring Boot
-White Label Error	Wrong URL opened	Correct API endpoint used
-Docker port error	Port 8080 already in use	Killed existing process
-SonarCloud not computing	Wrong sonar.host.url	Set to https://sonarcloud.io
-Docker not running	WSL not installed	Installed WSL + Docker Desktop
+🚧 Challenges Faced During Frontend Development 
+
+Building the DeployPulse frontend and integrating it with a live Spring Boot backend was not straightforward. Multiple real-world DevOps and integration problems were encountered and solved.
+
+1️⃣ Backend API Not Reachable from Frontend
+
+Issue
+Frontend showed:
+
+Blank data
+
+Network errors in browser console
+
+Failed to fetch errors
+
+Cause
+Frontend was calling:
+
+http://localhost:8080/api/features
+
+
+But once deployed, localhost refers to the user’s own computer, not the backend server.
+
+How We Faced It
+
+App worked locally
+
+After deployment → API calls failed
+
+Console showed network/CORS errors
+
+Solution
+Replaced all localhost URLs with the live backend URL from Render:
+
+https://deploypulse-backend.onrender.com/api/features
+
+
+Lesson Learned:
+Frontend must always point to a public backend URL in production.
+
+2️⃣ CORS Errors Blocking Requests
+
+Issue
+Browser console showed:
+
+Access to fetch at 'backend-url' from origin 'frontend-url' has been blocked by CORS policy
+
+
+Cause
+Spring Boot backend did not allow requests from frontend domain.
+
+Solution (Backend Fix)
+
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/api/**")
+                .allowedOrigins("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedHeaders("*");
+    }
+}
+
+
+3️⃣ Vercel Build Failed
+
+Issue
+Deployment on Vercel failed with build errors.
+
+Cause
+
+Wrong Node version
+
+Missing dependencies
+
+Wrong build command
+
+Solution
+
+Verified package.json
+
+Ensured build script exists:
+
+"scripts": {
+  "build": "react-scripts build"
+}
+
+
+Set Vercel build command to:
+
+npm run build
+
+
+Lesson Learned:
+Cloud deployments require correct build scripts and dependency setup.
+
+4️⃣ API Returning Empty Array []
+
+Issue
+Frontend worked but showed no data.
+
+Cause
+Backend database (H2 in-memory) was empty after restart.
+
+Solution
+
+Added test data manually via API
+
+Understood that H2 resets on every restart
+
+Lesson Learned:
+In-memory databases do not store data permanently.
+
+5️⃣ Docker Confusion (Frontend vs Backend)
+
+Issue
+Uncertainty about whether frontend should be inside backend container.
+
+Understanding Gained
+
+Backend = API service
+
+Frontend = Static app
+
+Both are deployed separately
+
+Lesson Learned:
+Frontend and backend are separate deployable services.
+
+6️⃣ Hardcoded URLs Everywhere
+
+Issue
+Backend URL written in many files → difficult to update.
+
+Better Practice (Learned Later)
+
+Create .env file:
+
+REACT_APP_API_URL=https://deploypulse-backend.onrender.com
+
+
+Use in code:
+
+fetch(`${process.env.REACT_APP_API_URL}/api/features`)
+
+
+Lesson Learned:
+Never hardcode URLs — use environment variables.
+
+7️⃣ White Label Error Page Confusion
+
+Issue
+Opening backend root URL showed Spring Boot “Whitelabel Error Page”.
+
+Cause
+Backend has APIs only, not a homepage.
+
+Understanding
+Correct endpoint is:
+
+/api/features
+
+
+Lesson Learned:
+Backend servers don't always have UI pages.
+
+8️⃣ Deployment Order Problem
+
+Issue
+Frontend deployed before backend was live → API failures.
+
+Solution
+Deployment order learned:
+
+Deploy backend
+
+Get backend public URL
+
+Update frontend API URL
+
+Deploy frontend
+
+
 📌 Known Limitations
 
 Uses H2 in-memory database (data resets on restart)
