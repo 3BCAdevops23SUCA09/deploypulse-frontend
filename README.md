@@ -35,7 +35,7 @@ This repository contains the frontend (React) application.
 Item	Value
 Protocol	REST API
 Data Format	JSON
-Backend Base URL (Production)	https://your-render-backend-url.onrender.com
+Backend Base URL (Production)	https://deploypulse-backend.onrender.com
 
 Backend Base URL (Local Dev)	http://localhost:8080
 ⚙️ Technology Stack
@@ -90,7 +90,7 @@ Recommended Approach (Best Practice)
 
 Create a .env file in the frontend root:
 
-REACT_APP_API_URL=https://your-render-backend-url.onrender.com
+REACT_APP_API_URL=https://deploypulse-backend.onrender.com
 
 
 Then in code:
@@ -109,7 +109,7 @@ Import project
 Add environment variable:
 
 Key	Value
-REACT_APP_API_URL	https://your-render-backend-url.onrender.com
+REACT_APP_API_URL	https://deploypulse-backend.onrender.com
 
 Click Deploy
 
