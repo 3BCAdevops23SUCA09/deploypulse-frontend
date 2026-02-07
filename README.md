@@ -334,3 +334,5 @@ Dark mode UI
 Pagination
 
 Role-based access
+
+##FOR merging pull request for frontend
