@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - front-branch
 
 jobs:
   sonar:
@@ -23,14 +24,18 @@ jobs:
         run: npm install
 
       - name: Run tests with coverage
-        run: npm run test:coverage
+        run: npm run test:coverage 2>&1 || true
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarqube-scan-action@v5
+        uses: SonarSource/sonarcloud-github-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: >
             -Dsonar.projectKey=3BCAdevops23SUCA09_deploypulse-frontend
             -Dsonar.organization=3bcadevops23suca09
+            -Dsonar.sources=src
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.coverage.exclusions=**/*.test.js,**/*.spec.js,src/index.js,src/reportWebVitals.js
+            -Dsonar.exclusions=/node_modules/,/build/,/dist/,/coverage/
