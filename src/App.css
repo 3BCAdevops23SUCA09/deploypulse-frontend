@@ -1,15 +1,26 @@
+/* ===== GLOBAL STYLES ===== */
 body {
   font-family: "Segoe UI", sans-serif;
   background-color: #f4f6f8;
+  color: #000;
   margin: 0;
+  transition: all 0.3s ease;
 }
 
+/* ===== DARK MODE (FULL PAGE) ===== */
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+/* ===== CONTAINER ===== */
 .container {
   max-width: 900px;
   margin: auto;
   padding: 20px;
 }
 
+/* ===== TITLES ===== */
 .title {
   text-align: center;
   color: #2c3e50;
@@ -21,14 +32,32 @@ body {
   margin-bottom: 30px;
 }
 
+/* Dark mode text */
+body.dark-mode .title {
+  color: #ffffff;
+}
+
+body.dark-mode .subtitle {
+  color: #cccccc;
+}
+
+/* ===== CARD ===== */
 .card {
   background: white;
   border-radius: 8px;
   padding: 15px;
   margin-bottom: 15px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
 }
 
+/* Dark mode card */
+body.dark-mode .card {
+  background: #1e1e1e;
+  box-shadow: 0 2px 6px rgba(255,255,255,0.05);
+}
+
+/* ===== BUTTONS ===== */
 button {
   border: none;
   padding: 8px 12px;
@@ -37,18 +66,44 @@ button {
   margin-right: 8px;
 }
 
+/* Primary */
 .btn-primary {
   background-color: #3498db;
   color: white;
 }
 
+/* Danger */
 .btn-danger {
   background-color: #e74c3c;
   color: white;
 }
 
+/* Toggle button (dark mode button) */
+.toggle-btn {
+  background-color: #333;
+  color: white;
+}
+
+/* Dark mode toggle button */
+body.dark-mode .toggle-btn {
+  background-color: #ffffff;
+  color: #000;
+}
+
+/* ===== INPUTS ===== */
 input, select {
   padding: 8px;
   width: 100%;
   margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  transition: all 0.3s ease;
+}
+
+/* Dark mode inputs */
+body.dark-mode input,
+body.dark-mode select {
+  background-color: #2c2c2c;
+  color: #ffffff;
+  border: 1px solid #555;
 }
